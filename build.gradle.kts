@@ -6,7 +6,6 @@ import java.net.URLDecoder
 import java.nio.file.Files
 import java.security.MessageDigest
 
-
 plugins {
     kotlin("jvm") version "1.9.22"
 
@@ -21,7 +20,6 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
 
-    maven("https://hub.jeff-media.com/nexus/repository/jeff-media-public/")
     maven("https://repo.codemc.org/repository/maven-public/")
     maven("https://maven.enginehub.org/repo/")
     maven("https://jitpack.io")
@@ -82,6 +80,7 @@ tasks {
         doFirst {
             val folder = file(layout.projectDirectory.path.toString() + "/server/").also { it.mkdirs() }
 
+            // credits: horizon's end ion
             fun downloadJenkinsArtifact(domain: String, project: String, filter: String, location: String, file: File) {
                 val jarName =
                     URL("https://$domain/job/$project/lastSuccessfulBuild/api/xml?xpath=/freeStyleBuild/artifact/relativePath${if (filter.isNotEmpty()) "[$filter]" else ""}")
@@ -95,6 +94,7 @@ tasks {
                 )
             }
 
+            // credits: random stackoverflow guy for handling redirects
             fun download(stringUrl: String, file: File) {
                 val visited: MutableMap<String, Int> = mutableMapOf()
                 var url = stringUrl
@@ -108,7 +108,7 @@ tasks {
                         connectTimeout = 15000
                         readTimeout = 15000
                         instanceFollowRedirects = false
-                        setRequestProperty("User-Agent", "RattlyDownloader")
+                        setRequestProperty("User-Agent", "RattlyDownloader") // as asked by spiget
                     }
 
                     when (conn.responseCode) {
