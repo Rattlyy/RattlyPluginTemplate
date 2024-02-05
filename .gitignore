@@ -6,6 +6,8 @@ build/
 
 ### Server ###
 server/hash/**
+!server/hash/.gitkeep
+!server/plugins/.gitkeep
 server/plugins/**
 server/server.jar
 
